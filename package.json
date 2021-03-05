@@ -14,6 +14,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "peter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhangyuanwei/node-images.git"
+  },
+  "author": "peter <maxpeter2100@gmail.com>",
   "license": "ISC"
 }

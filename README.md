@@ -15,27 +15,28 @@ node app.js
 
 ```
 > 授權碼 中央氣象局開放資料平臺提供透過Url下載檔案以及 Restful Api 資料擷取方法取用資料，中央氣象局開放資料平臺採用會員服務機制，需帶入資料項目代碼以及有效會員之授權碼，方可取得各式開放資料。其中，資料項目代碼可至資料清單列表查詢
+> 內含測試用資料庫weatherDB
 
 ## **相關TABLE**
 
 ```sql
 CREATE TABLE USERDATA(
-   ID varchar(10) PRIMARY KEY     NOT NULL,
-   NAME           TEXT    NOT NULL,
-   ISALLOW        INT(1)  DEFAULT 0
+   ID varchar(10) PRIMARY KEY	NOT NULL,
+   NAME	TEXT	NOT NULL,
+   ISALLOW	INT(1)  DEFAULT 0
 );
 
 INSERT INTO USERDATA (ID, NAME, ISALLOW)  VALUES ('admin', '管理者', 1);
 IINSERT INTO USERDATA (ID, NAME, ISALLOW) VALUES ('userTest', '測試人員', 0);
 
 CREATE TABLE WEATHERDATA(
-   ID 	CHAR(36) PRIMARY KEY     NOT NULL,
-   CITY_NAME   VARCHAR(3)    		NOT NULL,
-   weatherElementColumn VARCHAR(4) 			NOT NULL,
-   weatherElementValue 	VARCHAR(50) 		NOT NULL,
-   startTime	CHAR(19)			NOT NULL,
-   endTime	CHAR(19)			NOT NULL,
-   IMPORT_TIME		CHAR(19)			NOT NULL,
+   ID	CHAR(36)	PRIMARY KEY	NOT NULL,
+   CITY_NAME	VARCHAR(3)	NOT NULL,
+   weatherElementColumn	VARCHAR(4)	NOT NULL,
+   weatherElementValue	VARCHAR(50)	NOT NULL,
+   startTime	CHAR(19)	NOT NULL,
+   endTime	CHAR(19)	NOT NULL,
+   IMPORT_TIME	CHAR(19)	NOT NULL,
 );
 
 CREATE INDEX WD_INDEX1 ON WEATHERDATA (

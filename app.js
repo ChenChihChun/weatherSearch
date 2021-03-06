@@ -81,6 +81,7 @@ app.listen(port, hostname,() => {
 
 //取得使用者資料判斷是否有資格查詢資料
 const getUserPermission = (parameter) => {
+	console.log("取得使用者資料判斷是否有資格查詢資料");
 	let element = []; //資料儲存
 	return new Promise (function(resolve,reject) {
 		var db = dbModule.db();
@@ -103,6 +104,7 @@ const getUserPermission = (parameter) => {
 
 //取得天氣資料
 const getCityWeather = (parameter) => {
+  console.log("取得天氣資料");
   let element = []; //資料儲存
   return new Promise (function(resolve,reject) {
 	var db = dbModule.db();
@@ -129,6 +131,7 @@ const getCityWeather = (parameter) => {
 
 //塞入天氣資料
 function insertData() {
+	console.log("塞入天氣資料");
 	//臺北市  
 	var city1 = "%E8%87%BA%E5%8C%97%E5%B8%82";
 	//新北市  

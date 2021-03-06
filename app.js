@@ -133,11 +133,11 @@ const getCityWeather = (parameter) => {
 function insertData() {
 	console.log("塞入天氣資料");
 	//臺北市  
-	var city1 = "%E8%87%BA%E5%8C%97%E5%B8%82";
+	var city1 = encodeURIComponent("臺北市");//"%E8%87%BA%E5%8C%97%E5%B8%82";
 	//新北市  
-	var city2 = "%E6%96%B0%E5%8C%97%E5%B8%82";
+	var city2 = encodeURIComponent("新北市");//"%E6%96%B0%E5%8C%97%E5%B8%82";
 	//桃園市  
-	var city3 = "%E6%A1%83%E5%9C%92%E5%B8%82";
+	var city3 = encodeURIComponent("桃園市");//"%E6%A1%83%E5%9C%92%E5%B8%82";
 	// var cityArray = [city1,city2,city3];
 	try {
 		needle.get(requestURL + city1 + "," + city2 + "," + city3, doRequest);

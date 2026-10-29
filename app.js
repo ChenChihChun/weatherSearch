@@ -8,6 +8,8 @@ const port = 3000;
 const dbModule = require('./dao/sqlLiteDB');
 const backgroundService = require('./service/background');
 const queryService = require('./service/query');
+const scheduler = require('./service/scheduler');
+const publisher = require('./service/publisher');
 
 app.get('/', (req, res) => {
   let html = "<h1>NodeJs 服務測試，取得臺灣天氣資料</h1>";
@@ -15,7 +17,18 @@ app.get('/', (req, res) => {
   html += "<p>請使用Http GET本站台後方網址加上 /query?city={city}&id={id}  來取得天氣資料</p>";
   html += "<p>city 限於：臺北市、新北市、桃園市</p>";
   html += "<p>id 限於：admin、userTest</p>";
+  html += "<p>目前所在位置的未來一小時與未來六天天氣，每小時整點自動發布 (00:00 ~ 07:00 不發布)，最新一則請看 <a href=\"/report\">/report</a></p>";
   res.send(html);
+});
+
+app.get('/report', (req, res) => {
+	//最近一次發布的天氣報告
+	const latest = publisher.getLatest();
+	if (latest == null) {
+		res.status(404).json({ 'msg': "尚未發布天氣報告" });
+	} else {
+		res.json(latest);
+	}
 });
 
 app.get('/query', (req, res) => {
@@ -34,16 +47,6 @@ app.get('*', function(req, res){
 
 app.listen(port, hostname,() => {
  console.log(`Server running at http://${hostname}:${port}/`);
-  //一小時
-  let interval = 1000*60*60; 
-  
-  //interval = 5000//*60; //for test
-  //呼叫背景服務
-  setInterval(function(){
-	  backgroundService.doBackgroundInsertData();
-  },interval);
+  //每小時整點：抓取中央氣象局資料，並發布目前位置天氣 (00:00 ~ 07:00 不發布)
+  scheduler.start([backgroundService.doBackgroundInsertData]);
 })
-
-
-
-

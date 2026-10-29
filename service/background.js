@@ -28,7 +28,10 @@ const doBackgroundInsertData = () =>{
 
 //執行爬蟲
 function doRequest(error, response, body) {
-	if (error) throw error;
+	if (error || !body || !body.records) {
+		console.log("取得中央氣象局資料失敗：" + (error ? error.message : response.statusCode));
+		return;
+	}
 
 	//body.records.location.locationName  ex: 臺北市
 	const db = dbModule.db();
